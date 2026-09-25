@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>솜하치 버츄얼 구독 혜택</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        baby: {
+                            50: '#fff5f7',
+                            100: '#ffe4e9',
+                            200: '#fecdd6',
+                            300: '#f4a3b8',
+                            400: '#ec728d',
+                            500: '#e14d70',
+                            600: '#cc3156',
+                            800: '#881d36',
+                            900: '#611124'
+                        },
+                        chzzk: {
+                            DEFAULT: '#00ffa3',
+                            dark: '#00cc82'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        .floating { animation: float 6s ease-in-out infinite; }
+        .soft-shadow {
+            box-shadow: 0 10px 30px -8px rgba(244, 163, 184, 0.22);
+        }
+        body {
+            background-color: #fff5f7;
+            color: #4a3b40;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #fff5f7; }
+        ::-webkit-scrollbar-thumb { background: #fecdd6; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f4a3b8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-baby-200 selection:text-baby-900">
+
+    <header class="sticky top-0 z-40 bg-[#fff5f7]/90 backdrop-blur-md border-b border-baby-100">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('main')">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-baby-300 to-baby-500 flex items-center justify-center text-white font-bold text-base shadow-sm">
+                    솜
+                </div>
+                <div>
+                    <span class="font-bold text-base tracking-tight text-baby-900">솜하치</span>
+                    <span class="text-[11px] block text-baby-500 font-medium tracking-wide">Virtual Creator</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <a href="https://chzzk.naver.com/c0bedd64bed45287a3493479a4cc8295" target="_blank" rel="noopener noreferrer" 
+                    class="px-3 py-2 rounded-xl bg-[#00ffa3]/10 hover:bg-[#00ffa3]/20 text-emerald-800 border border-emerald-300 font-medium text-xs tracking-wide transition-all shadow-xs flex items-center space-x-1.5">
+                    <i class="fa-solid fa-tv text-[11px] text-emerald-600"></i>
+                    <span class="hidden sm:inline">치지직 방송국</span>
+                </a>
+                <button onclick="switchView('tier1')" class="px-3 py-2 rounded-xl bg-white hover:bg-baby-50 text-baby-800 border border-baby-200 font-medium text-xs tracking-wide transition-all shadow-xs flex items-center space-x-1.5">
+                    <i class="fa-solid fa-lock text-[10px] text-emerald-500"></i>
+                    <span>1티어</span>
+                </button>
+                <button onclick="switchView('tier2')" class="px-3 py-2 rounded-xl bg-white hover:bg-baby-50 text-baby-800 border border-baby-200 font-medium text-xs tracking-wide transition-all shadow-xs flex items-center space-x-1.5">
+                    <i class="fa-solid fa-lock text-[10px] text-baby-500"></i>
+                    <span>2티어</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW -->
+    <div id="view-main" class="flex-grow">
+        <section class="relative pt-16 pb-12 sm:pt-24 sm:pb-20 text-center px-6">
+            <div class="max-w-2xl mx-auto">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white border border-baby-200 text-xs font-medium text-baby-600 mb-6 shadow-sm">
+                    <i class="fa-regular fa-heart text-baby-400"></i>
+                    <span>차분하고 아늑한 솜하치의 구독 혜택 안내</span>
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-baby-900 mb-5 leading-snug">
+                    솜하치 버츄얼 구독하고<br>
+                    <span class="text-baby-500 underline decoration-baby-200 decoration-wavy underline-offset-8">특별한 혜택</span>을 만나보세요
+                </h1>
+                
+                <p class="text-sm sm:text-base text-stone-600 leading-relaxed mb-8 max-w-lg mx-auto">
+                    티어별 구독티콘, 네컷 사진, 편지, 그리고 방셀과 오버워치 리플권까지 소중한 마음을 담아 전해드려요 🌸
+                </p>
+
+                <!-- Chzzk Broadcast Quick Link Banner -->
+                <div class="mb-8 p-4 bg-gradient-to-r from-emerald-50 to-baby-50 border border-emerald-200 rounded-3xl flex items-center justify-between gap-4 soft-shadow">
+                    <div class="flex items-center space-x-3.5 text-left">
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-lg shadow-sm shrink-0">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-baby-900 text-xs sm:text-sm">솜하치 치지직 생방송 놀러가기</h4>
+                            <p class="text-[11px] text-stone-500">월·수·금·토 오후 7시 방송 ON! 소통하러 오세요 ✨</p>
+                        </div>
+                    </div>
+                    <a href="https://chzzk.naver.com/c0bedd64bed45287a3493479a4cc8295" target="_blank" rel="noopener noreferrer"
+                        class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all shrink-0 flex items-center space-x-1.5">
+                        <span>방송국 바로가기</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Prominent Discord Notice Warning -->
+                <div class="mb-10 bg-white border-2 border-baby-300 rounded-3xl p-5 sm:p-6 soft-shadow text-left">
+                    <div class="flex items-start space-x-3.5">
+                        <div class="w-9 h-9 rounded-2xl bg-baby-500 text-white flex items-center justify-center shrink-0 text-sm mt-0.5 shadow-sm">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-baby-900 text-sm sm:text-base mb-1">🔒 구독자 전용 페이지 이용 필독 공지</h3>
+                            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                                구독자 전용 페이지는 비밀번호가 걸려 있으며, <strong class="text-baby-600 font-bold">디스코드를 통해 비밀번호를 제공받아야</strong> 혜택 및 페이지 이용이 가능합니다!
+                            </p>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <button onclick="switchView('tier1')" class="px-3 py-1.5 rounded-xl bg-baby-50 hover:bg-baby-100 text-baby-800 text-xs font-semibold transition-colors">
+                                    1티어 페이지 입장하기 →
+                                </button>
+                                <button onclick="switchView('tier2')" class="px-3 py-1.5 rounded-xl bg-baby-50 hover:bg-baby-100 text-baby-800 text-xs font-semibold transition-colors">
+                                    2티어 페이지 입장하기 →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a href="#tiers" class="px-6 py-3.5 rounded-2xl bg-baby-500 hover:bg-baby-600 text-white font-medium text-sm transition-all shadow-md shadow-baby-200">
+                        티어별 상세 혜택 보기
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tiers Section -->
+        <section id="tiers" class="py-12 max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-bold text-baby-900 mb-2">구독 등급별 혜택 구성</h2>
+                <p class="text-stone-500 text-xs sm:text-sm">원하시는 티어를 확인하시고 전용관에서 콘텐츠를 즐겨보세요.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Tier 1 Card -->
+                <div class="bg-white rounded-3xl border border-emerald-200 p-8 flex flex-col justify-between shadow-sm transition-all hover:translate-y-[-2px]">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200">
+                                💚 1티어 구독 혜택
+                            </span>
+                            <span class="text-xs font-semibold text-stone-400">Basic Tier</span>
+                        </div>
+
+                        <div class="space-y-3.5 mb-8 text-sm">
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">소형 네컷 사진</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">짧은 편지</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">추가 리플권 1장</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">1티어 구독티콘, 구독뱃지 사용 가능</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="switchView('tier1')" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs transition-all shadow-sm">
+                        1티어 구독자 전용관 이동 💚
+                    </button>
+                </div>
+
+                <!-- Tier 2 Card -->
+                <div class="bg-white rounded-3xl border border-baby-200 p-8 flex flex-col justify-between soft-shadow transition-all hover:translate-y-[-2px] relative">
+                    <div class="absolute -top-3 right-6 bg-baby-500 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm">
+                        Popular 🌟
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3 py-1 rounded-full bg-baby-50 text-baby-700 font-bold text-xs border border-baby-200">
+                                💓 2티어 구독 혜택
+                            </span>
+                            <span class="text-xs font-semibold text-stone-400">Premium Tier</span>
+                        </div>
+
+                        <div class="space-y-3.5 mb-8 text-sm">
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-baby-100 text-baby-600 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">방셀 3장</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-baby-100 text-baby-600 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">대형 네컷</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-baby-100 text-baby-600 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">체키 2장</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-baby-100 text-baby-600 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">장문 편지</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-baby-100 text-baby-600 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">오버워치 추가 리플권 1장</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-stone-700">
+                                <span class="w-5 h-5 rounded-full bg-baby-100 text-baby-600 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></span>
+                                <span class="font-medium">2티어 구독티콘, 구독뱃지 사용 가능</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="switchView('tier2')" class="w-full py-3 rounded-2xl bg-baby-500 hover:bg-baby-600 text-white font-medium text-xs transition-all shadow-sm">
+                        2티어 구독자 전용관 이동 💓
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- General Guidelines Section -->
+        <section class="py-12 max-w-3xl mx-auto px-6">
+            <div class="bg-white border border-baby-100 rounded-3xl p-8 soft-shadow">
+                <h3 class="font-bold text-baby-900 text-base mb-5 flex items-center">
+                    <i class="fa-solid fa-circle-info text-baby-400 mr-2.5"></i>
+                    구독 이용 가이드 및 공지사항
+                </h3>
+                <div class="space-y-4 text-xs sm:text-sm text-stone-600 leading-relaxed">
+                    <div class="flex items-start space-x-2.5">
+                        <span class="text-baby-500 mt-0.5">•</span>
+                        <p><strong class="text-baby-900">구독 이모티콘 & 뱃지:</strong> 결제 즉시 스트리밍 방송 채팅창에서 사용하실 수 있습니다.</p>
+                    </div>
+                    <div class="flex items-start space-x-2.5">
+                        <span class="text-baby-500 mt-0.5">•</span>
+                        <p><strong class="text-baby-900">실물/디지털 리워드:</strong> 매월 정기 갱신일 이후 디스코드 또는 지정된 채널을 통해 안내 및 지급됩니다.</p>
+                    </div>
+                    <div class="flex items-start space-x-2.5">
+                        <span class="text-baby-500 mt-0.5">•</span>
+                        <p><strong class="text-baby-900">문의 사항:</strong> 기타 궁금하신 점은 방송 중 채팅이나 팬카페를 통해 편하게 말씀해 주세요! 기타 궁금한 점은 디스코드로 말해주세요!</p>
+                    </div>
+                    <div class="flex items-start space-x-2.5">
+                        <span class="text-baby-500 mt-0.5">•</span>
+                        <p><strong class="text-baby-900">구독자 전용 페이지 안내:</strong> 구독자 전용 페이지는 비밀번호가 걸려 있으며, 디스코드를 통해 비밀번호를 제공받아야 혜택 이용이 가능합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TIER 1 SUBSCRIBER VIEW -->
+    <div id="view-tier1" class="flex-grow py-12 px-6 max-w-4xl mx-auto w-full hidden">
+        <!-- Lock Screen -->
+        <div id="t1-lock" class="bg-white border border-emerald-200 rounded-3xl p-8 sm:p-12 soft-shadow max-w-md mx-auto text-center my-8">
+            <div class="w-16 h-16 rounded-3xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-6 border border-emerald-100 shadow-inner">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <h2 class="text-xl sm:text-2xl font-bold text-baby-900 mb-3">💚 1티어 구독자 전용관</h2>
+            <p class="text-stone-500 text-xs sm:text-sm mb-6 leading-relaxed">
+                디스코드를 통해 제공받은 <span class="text-emerald-700 font-bold">1티어 비밀번호</span>를 입력해 주세요.
+            </p>
+
+            <form onsubmit="handleSubLogin(event, 1)" class="space-y-4">
+                <input type="password" id="t1-pw" placeholder="1티어 비밀번호 입력" required
+                    class="w-full px-4 py-3.5 rounded-2xl bg-emerald-50/50 border border-emerald-200 text-stone-800 placeholder-stone-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 text-center font-medium">
+                <div id="t1-err" class="text-red-500 text-xs hidden">비밀번호가 올바르지 않습니다.</div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs sm:text-sm transition-all shadow-md">
+                    1티어 전용관 입장하기 🔓
+                </button>
+            </form>
+            <div class="mt-6">
+                <button onclick="switchView('main')" class="text-xs text-stone-500 hover:text-baby-600 font-medium">
+                    ← 메인으로 돌아가기
+                </button>
+            </div>
+        </div>
+
+        <!-- Tier 1 Authenticated Board Dashboard -->
+        <div id="t1-board" class="hidden space-y-6">
+            <div class="bg-white border border-emerald-200 rounded-3xl p-6 sm:p-8 soft-shadow flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4 text-center sm:text-left">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">1티어 인증 완료</span>
+                        <h2 class="text-lg sm:text-xl font-bold text-baby-900 mt-1">소형네컷 · 짧은 편지 · 추가 리플권 전용 게시판</h2>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleAdminMode(1)" id="t1-admin-btn" class="px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium text-xs transition-colors">
+                        관리자 모드 ⚙️
+                    </button>
+                    <button onclick="logoutSub(1)" class="px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 font-medium text-xs transition-colors">
+                        잠금
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Panel (Post creation + Password Management) -->
+            <div id="t1-admin-panel" class="hidden space-y-6">
+                <!-- Post Creation Form -->
+                <div class="bg-white border-2 border-emerald-300 rounded-3xl p-6 sm:p-8 soft-shadow space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-emerald-800 text-sm sm:text-base flex items-center">
+                            <i class="fa-solid fa-pen-nib mr-2"></i> 1티어 새 게시글 작성 (관리자 전용)
+                        </h3>
+                        <span class="text-xs text-stone-400">움짤·고화질 사진 무제한 업로드 가능</span>
+                    </div>
+                    <form onsubmit="handleCreatePost(event, 1)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">글 제목</label>
+                            <input type="text" id="t1-post-title" placeholder="예: [1티어] 이번 달 소형네컷 & 짧은 편지 도착!" required
+                                class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/40 border border-emerald-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">내용 / 편지 내용</label>
+                            <textarea id="t1-post-content" rows="4" placeholder="구독자분들에게 전할 편지 내용이나 안내를 입력하세요..." required
+                                class="w-full px-4 py-2.5 rounded-xl bg-emerald-50/40 border border-emerald-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">고화질 사진 / 움짤(GIF) 첨부 (개수 제한 없음)</label>
+                            <input type="file" id="t1-post-files" multiple accept="image/*"
+                                class="w-full px-3 py-2 rounded-xl bg-emerald-50/40 border border-emerald-200 text-xs text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 cursor-pointer">
+                            <p class="text-[11px] text-stone-400 mt-1">💡 원본 화질을 유지한 상태로 IndexedDB에 안전하게 영구 저장됩니다.</p>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs transition-all shadow-sm">
+                            게시글 등록하기 💚
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Password Settings Box -->
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-3xl p-6 soft-shadow flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h4 class="font-bold text-emerald-900 text-sm mb-1"><i class="fa-solid fa-key mr-1.5"></i> 1티어 전용관 비밀번호 설정</h4>
+                        <p class="text-xs text-stone-600">관리자가 직접 1티어 접속 비밀번호를 변경할 수 있습니다 (영구 저장).</p>
+                    </div>
+                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <input type="text" id="t1-new-pw" placeholder="새 비밀번호" class="px-3.5 py-2.5 rounded-xl bg-white border border-emerald-200 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-400 flex-1 sm:w-40">
+                        <button onclick="updatePassword(1)" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs transition-colors shrink-0">
+                            변경하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Feed -->
+            <div id="t1-posts-container" class="space-y-6">
+                <!-- Dynamically populated posts -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TIER 2 SUBSCRIBER VIEW -->
+    <div id="view-tier2" class="flex-grow py-12 px-6 max-w-4xl mx-auto w-full hidden">
+        <!-- Lock Screen -->
+        <div id="t2-lock" class="bg-white border border-baby-200 rounded-3xl p-8 sm:p-12 soft-shadow max-w-md mx-auto text-center my-8">
+            <div class="w-16 h-16 rounded-3xl bg-baby-50 text-baby-500 flex items-center justify-center text-2xl mx-auto mb-6 border border-baby-100 shadow-inner">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <h2 class="text-xl sm:text-2xl font-bold text-baby-900 mb-3">💓 2티어 구독자 전용관</h2>
+            <p class="text-stone-500 text-xs sm:text-sm mb-6 leading-relaxed">
+                디스코드를 통해 제공받은 <span class="text-baby-600 font-bold">2티어 비밀번호</span>를 입력해 주세요.
+            </p>
+
+            <form onsubmit="handleSubLogin(event, 2)" class="space-y-4">
+                <input type="password" id="t2-pw" placeholder="2티어 비밀번호 입력" required
+                    class="w-full px-4 py-3.5 rounded-2xl bg-baby-50 border border-baby-200 text-stone-800 placeholder-stone-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-baby-400 text-center font-medium">
+                <div id="t2-err" class="text-red-500 text-xs hidden">비밀번호가 올바르지 않습니다.</div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-baby-500 hover:bg-baby-600 text-white font-medium text-xs sm:text-sm transition-all shadow-md">
+                    2티어 전용관 입장하기 🔓
+                </button>
+            </form>
+            <div class="mt-6">
+                <button onclick="switchView('main')" class="text-xs text-stone-500 hover:text-baby-600 font-medium">
+                    ← 메인으로 돌아가기
+                </button>
+            </div>
+        </div>
+
+        <!-- Tier 2 Authenticated Board Dashboard -->
+        <div id="t2-board" class="hidden space-y-6">
+            <div class="bg-white border border-baby-200 rounded-3xl p-6 sm:p-8 soft-shadow flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4 text-center sm:text-left">
+                    <div class="w-14 h-14 rounded-2xl bg-baby-100 text-baby-500 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-baby-50 text-baby-600 text-[11px] font-bold border border-baby-200">2티어 인증 완료</span>
+                        <h2 class="text-lg sm:text-xl font-bold text-baby-900 mt-1">방셀 3장 · 대형네컷 · 체키 2장 · 장문 편지 전용 게시판</h2>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleAdminMode(2)" id="t2-admin-btn" class="px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium text-xs transition-colors">
+                        관리자 모드 ⚙️
+                    </button>
+                    <button onclick="logoutSub(2)" class="px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 font-medium text-xs transition-colors">
+                        잠금
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Panel (Post creation + Password Management) -->
+            <div id="t2-admin-panel" class="hidden space-y-6">
+                <!-- Post Creation Form -->
+                <div class="bg-white border-2 border-baby-300 rounded-3xl p-6 sm:p-8 soft-shadow space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-baby-900 text-sm sm:text-base flex items-center">
+                            <i class="fa-solid fa-pen-nib mr-2"></i> 2티어 새 게시글 작성 (관리자 전용)
+                        </h3>
+                        <span class="text-xs text-stone-400">움짤·고화질 사진 무제한 업로드 가능</span>
+                    </div>
+                    <form onsubmit="handleCreatePost(event, 2)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">글 제목</label>
+                            <input type="text" id="t2-post-title" placeholder="예: [2티어] 방셀 3장 + 대형네컷 & 장문편지 패키지" required
+                                class="w-full px-4 py-2.5 rounded-xl bg-baby-50 border border-baby-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-baby-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">내용 / 장문 편지</label>
+                            <textarea id="t2-post-content" rows="4" placeholder="2티어 구독자분들을 위한 장문 편지와 방셀 안내 내용을 입력하세요..." required
+                                class="w-full px-4 py-2.5 rounded-xl bg-baby-50 border border-baby-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-baby-400"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-600 mb-1">고화질 사진 / 방셀 / 체키 움짤(GIF) 첨부 (개수 제한 없음)</label>
+                            <input type="file" id="t2-post-files" multiple accept="image/*"
+                                class="w-full px-3 py-2 rounded-xl bg-baby-50 border border-baby-200 text-xs text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-baby-500 file:text-white hover:file:bg-baby-600 cursor-pointer">
+                            <p class="text-[11px] text-stone-400 mt-1">💡 대용량 고화질 이미지와 GIF 움짤도 용량 제한 없이 IndexedDB에 완벽하게 저장됩니다.</p>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-2xl bg-baby-500 hover:bg-baby-600 text-white font-medium text-xs transition-all shadow-sm">
+                            게시글 등록하기 💓
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Password Settings Box -->
+                <div class="bg-baby-50/60 border border-baby-200 rounded-3xl p-6 soft-shadow flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h4 class="font-bold text-baby-900 text-sm mb-1"><i class="fa-solid fa-key mr-1.5"></i> 2티어 전용관 비밀번호 설정</h4>
+                        <p class="text-xs text-stone-600">관리자가 직접 2티어 접속 비밀번호를 변경할 수 있습니다 (영구 저장).</p>
+                    </div>
+                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <input type="text" id="t2-new-pw" placeholder="새 비밀번호" class="px-3.5 py-2.5 rounded-xl bg-white border border-baby-200 text-xs focus:outline-none focus:ring-2 focus:ring-baby-400 flex-1 sm:w-40">
+                        <button onclick="updatePassword(2)" class="px-4 py-2.5 rounded-xl bg-baby-500 hover:bg-baby-600 text-white font-medium text-xs transition-colors shrink-0">
+                            변경하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Feed -->
+            <div id="t2-posts-container" class="space-y-6">
+                <!-- Dynamically populated posts -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-baby-100 py-8 text-center text-stone-400 text-xs mt-12">
+        <div class="max-w-5xl mx-auto px-6">
+            <p class="font-medium text-stone-500 mb-1">© 2026 Somhachi Virtual Creator. All Rights Reserved.</p>
+            <p class="text-[11px] text-stone-400">Designed with calm baby pink aesthetic for Somhachi subscribers.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Modal for Alerts & ImageViewer -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300 p-4">
+        <div id="modal-box" class="bg-white border border-baby-100 rounded-3xl p-6 sm:p-8 max-w-lg w-full mx-auto shadow-xl transform scale-95 transition-all max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="modal-title" class="font-bold text-baby-900 text-base">알림</h3>
+                <button onclick="closeModal()" class="w-7 h-7 rounded-full bg-baby-50 hover:bg-baby-100 text-stone-500 flex items-center justify-center text-xs transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="text-stone-600 text-xs sm:text-sm mb-6 space-y-3">
+                <!-- Dynamic Content -->
+            </div>
+            <div class="flex space-x-2">
+                <button id="modal-download-btn" onclick="" class="hidden flex-1 py-2.5 rounded-2xl bg-baby-500 hover:bg-baby-600 text-white font-medium text-xs transition-colors">
+                    <i class="fa-solid fa-download mr-1.5"></i> 다운로드 하기
+                </button>
+                <button onclick="closeModal()" class="flex-1 py-2.5 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium text-xs transition-colors">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DB_NAME = 'SomhachiSubscriptionPermanentDB';
+        const STORE_NAME = 'appDataStore';
+        const DB_VERSION = 1;
+
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME, { keyPath: 'key' });
+                    }
+                };
+            });
+        }
+
+        async function dbGet(key, defaultVal) {
+            try {
+                const db = await openDB();
+                return new Promise((resolve, reject) => {
+                    const transaction = db.transaction(STORE_NAME, 'readonly');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.get(key);
+                    request.onsuccess = () => {
+                        if (request.result !== undefined && request.result.value !== undefined) {
+                            resolve(request.result.value);
+                        } else {
+                            resolve(defaultVal);
+                        }
+                    };
+                    request.onerror = () => reject(request.error);
+                });
+            } catch (err) {
+                console.error("IndexedDB get error:", err);
+                return defaultVal;
+            }
+        }
+
+        async function dbSet(key, value) {
+            try {
+                const db = await openDB();
+                return new Promise((resolve, reject) => {
+                    const transaction = db.transaction(STORE_NAME, 'readwrite');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.put({ key: key, value: value });
+                    request.onsuccess = () => resolve(true);
+                    request.onerror = () => reject(request.error);
+                });
+            } catch (err) {
+                console.error("IndexedDB set error:", err);
+                showCustomModal('저장 오류', '데이터 저장 중 오류가 발생했습니다.');
+                return false;
+            }
+        }
+
+        // Default initial passwords & sample posts
+        async function getPassword(tier) {
+            const defaultPw = tier === 1 ? 'som1' : 'som2';
+            return await dbGet(`tier_${tier}_password`, defaultPw);
+        }
+
+        async function setPassword(tier, newPw) {
+            return await dbSet(`tier_${tier}_password`, newPw);
+        }
+
+        async function getPosts(tier) {
+            const defaults = tier === 1 ? [
+                {
+                    id: 't1_init_1',
+                    title: '💚 [1티어 환영] 솜하치의 첫 번째 소형네컷 & 짧은 편지 패키지',
+                    content: '솜하치 1티어 구독을 진심으로 환영해요! 다정한 마음을 담은 소형네컷과 짧은 편지입니다. 이번 달도 함께 따스한 추억 많이 만들어요!',
+                    date: '2026-03-01',
+                    images: ['https://placehold.co/600x400/ffe4e9/881d36?text=Somhachi+Tier+1+Small+4Cut']
+                }
+            ] : [
+                {
+                    id: 't2_init_1',
+                    title: '💓 [2티어 환영] 방셀 3장 + 대형네컷 + 체키 & 장문편지 패키지',
+                    content: '사랑스러운 2티어 구독자님들을 위한 특별 선물! 방셀 3장과 대형네컷, 그리고 진심을 꾹꾹 눌러 담은 장문 편지예요. 오버워치 추가 리플권도 언제든 편하게 말씀해 주세요!',
+                    date: '2026-03-01',
+                    images: [
+                        'https://placehold.co/600x600/fecdd6/881d36?text=Bangsel+1',
+                        'https://placehold.co/600x600/f4a3b8/ffffff?text=Large+4Cut',
+                        'https://placehold.co/600x600/e14d70/ffffff?text=Cheki+GIF'
+                    ]
+                }
+            ];
+            return await dbGet(`tier_${tier}_posts`, defaults);
+        }
+
+        async function savePosts(tier, posts) {
+            return await dbSet(`tier_${tier}_posts`, posts);
+        }
+
+        // Admin mode states
+        let adminStates = {
+            1: false,
+            2: false
+        };
+
+        // View Switcher
+        function switchView(viewName) {
+            const views = ['main', 'tier1', 'tier2'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (viewName === 'main') {
+                document.getElementById('view-main').classList.remove('hidden');
+            } else if (viewName === 'tier1') {
+                document.getElementById('view-tier1').classList.remove('hidden');
+                checkSession(1);
+            } else if (viewName === 'tier2') {
+                document.getElementById('view-tier2').classList.remove('hidden');
+                checkSession(2);
+            }
+        }
+
+        // Session check for locked boards
+        async function checkSession(tier) {
+            const isAuth = sessionStorage.getItem(`somhachi_auth_${tier}`) === 'true';
+            const lockEl = document.getElementById(`t${tier}-lock`);
+            const boardEl = document.getElementById(`t${tier}-board`);
+
+            if (isAuth) {
+                lockEl.classList.add('hidden');
+                boardEl.classList.remove('hidden');
+                renderPosts(tier);
+            } else {
+                lockEl.classList.remove('hidden');
+                boardEl.classList.add('hidden');
+            }
+        }
+
+        // Sub Login Handler
+        async function handleSubLogin(event, tier) {
+            event.preventDefault();
+            const pwVal = document.getElementById(`t${tier}-pw`).value;
+            const errEl = document.getElementById(`t${tier}-err`);
+            const currentPw = await getPassword(tier);
+
+            if (pwVal === currentPw) {
+                errEl.classList.add('hidden');
+                sessionStorage.setItem(`somhachi_auth_${tier}`, 'true');
+                checkSession(tier);
+            } else {
+                errEl.classList.remove('hidden');
+            }
+        }
+
+        function logoutSub(tier) {
+            sessionStorage.removeItem(`somhachi_auth_${tier}`);
+            adminStates[tier] = false;
+            document.getElementById(`t${tier}-admin-panel`).classList.add('hidden');
+            document.getElementById(`t${tier}-pw`).value = '';
+            checkSession(tier);
+        }
+
+        // Toggle Admin Mode
+        function toggleAdminMode(tier) {
+            adminStates[tier] = !adminStates[tier];
+            const panel = document.getElementById(`t${tier}-admin-panel`);
+            const btn = document.getElementById(`t${tier}-admin-btn`);
+
+            if (adminStates[tier]) {
+                panel.classList.remove('hidden');
+                btn.classList.add('bg-baby-500', 'text-white');
+                btn.innerText = '관리자 모드 🔓';
+            } else {
+                panel.classList.add('hidden');
+                btn.classList.remove('bg-baby-500', 'text-white');
+                btn.innerText = '관리자 모드 ⚙️';
+            }
+            renderPosts(tier);
+        }
+
+        // Update Password
+        async function updatePassword(tier) {
+            const newPwInput = document.getElementById(`t${tier}-new-pw`);
+            const newPw = newPwInput.value.trim();
+
+            if (!newPw) {
+                showCustomModal('입력 오류', '변경할 새 비밀번호를 입력해 주세요.');
+                return;
+            }
+
+            await setPassword(tier, newPw);
+            newPwInput.value = '';
+            showCustomModal('변경 완료', `${tier}티어 전용관 비밀번호가 성공적으로 변경되어 영구 저장되었습니다! 🌸`);
+        }
+
+        // Handle Create Post with Unlimited High-Res / GIF Files via IndexedDB
+        async function handleCreatePost(event, tier) {
+            event.preventDefault();
+            const titleInput = document.getElementById(`t${tier}-post-title`);
+            const contentInput = document.getElementById(`t${tier}-post-content`);
+            const fileInput = document.getElementById(`t${tier}-post-files`);
+
+            const files = fileInput.files;
+            const postData = {
+                id: 'post_' + Date.now(),
+                title: titleInput.value,
+                content: contentInput.value,
+                date: new Date().toISOString().split('T')[0],
+                images: []
+            };
+
+            if (files.length > 0) {
+                const fileReaders = Array.from(files).map((file) => {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            postData.images.push(e.target.result);
+                            resolve();
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+
+                await Promise.all(fileReaders);
+            }
+
+            let posts = await getPosts(tier);
+            posts.unshift(postData);
+            await savePosts(tier, posts);
+
+            titleInput.value = '';
+            contentInput.value = '';
+            fileInput.value = '';
+
+            showCustomModal('등록 완료', `${tier}티어 게시글이 안전하게 영구 등록되었습니다! 🌸`);
+            renderPosts(tier);
+        }
+
+        // Delete Post
+        async function deletePost(tier, postId) {
+            let posts = await getPosts(tier);
+            posts = posts.filter(p => p.id !== postId);
+            await savePosts(tier, posts);
+            renderPosts(tier);
+        }
+
+        // Render Posts Feed
+        async function renderPosts(tier) {
+            const container = document.getElementById(`t${tier}-posts-container`);
+            const posts = await getPosts(tier);
+            const isAdmin = adminStates[tier];
+
+            if (posts.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white border border-stone-200 rounded-3xl p-12 text-center text-stone-400">
+                        <i class="fa-regular fa-folder-open text-3xl mb-3"></i>
+                        <p class="text-xs sm:text-sm">등록된 게시글이 아직 없습니다.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            posts.forEach(post => {
+                const borderColor = tier === 1 ? 'border-emerald-200' : 'border-baby-200';
+                const tagBg = tier === 1 ? 'bg-emerald-50 text-emerald-700' : 'bg-baby-50 text-baby-700';
+                
+                html += `
+                    <div class="bg-white border ${borderColor} rounded-3xl p-6 sm:p-8 soft-shadow space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2.5 py-1 rounded-full ${tagBg} font-bold text-xs">${tier}티어 혜택글</span>
+                                <span class="text-xs text-stone-400">${post.date}</span>
+                            </div>
+                            ${isAdmin ? `
+                                <button onclick="deletePost(${tier}, '${post.id}')" class="px-3 py-1 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 font-medium text-xs transition-colors">
+                                    <i class="fa-solid fa-trash-can mr-1"></i> 삭제
+                                </button>
+                            ` : ''}
+                        </div>
+
+                        <h3 class="font-bold text-baby-900 text-base sm:text-lg">${escapeHtml(post.title)}</h3>
+                        
+                        <div class="text-stone-700 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap bg-stone-50/60 p-4 rounded-2xl border border-stone-100">${escapeHtml(post.content)}</div>
+                `;
+
+                if (post.images && post.images.length > 0) {
+                    html += `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">`;
+                    post.images.forEach((imgSrc, imgIdx) => {
+                        html += `
+                            <div class="relative group">
+                                <div onclick="openImageViewer('${imgSrc}')" class="aspect-square rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 cursor-pointer relative shadow-xs">
+                                    <img src="${imgSrc}" alt="reward image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium">
+                                        <i class="fa-solid fa-magnifying-glass-plus text-lg"></i>
+                                    </div>
+                                </div>
+                                <button onclick="downloadImage('${imgSrc}', 'somhachi_tier${tier}_image_${imgIdx}.png')" class="absolute bottom-2 right-2 px-2.5 py-1 rounded-xl bg-white/90 hover:bg-white text-baby-800 text-[11px] font-bold shadow-md flex items-center space-x-1 backdrop-blur-xs transition-transform hover:scale-105">
+                                    <i class="fa-solid fa-download text-[10px]"></i>
+                                    <span>다운로드</span>
+                                </button>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Helper to escape HTML and prevent XSS
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // Download image helper function
+        function downloadImage(url, filename = 'somhachi_reward.png') {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Image Viewer Modal with Download Option
+        function openImageViewer(src) {
+            const modal = document.getElementById('modal');
+            const modalBox = document.getElementById('modal-box');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const downloadBtn = document.getElementById('modal-download-btn');
+
+            modalTitle.innerText = '고화질 이미지 / 움짤 미리보기';
+            modalContent.innerHTML = `
+                <div class="text-center space-y-3">
+                    <img src="${src}" class="max-w-full max-h-[65vh] mx-auto rounded-2xl shadow-md object-contain" alt="Full view">
+                    <p class="text-[11px] text-stone-400">💡 원본 화질 및 GIF 움짤이 손상 없이 유지됩니다.</p>
+                </div>
+            `;
+
+            downloadBtn.onclick = function() {
+                downloadImage(src, 'somhachi_reward_' + Date.now() + '.png');
+            };
+            downloadBtn.classList.remove('hidden');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Custom Modal helper
+        function showCustomModal(title, message) {
+            const modal = document.getElementById('modal');
+            const modalBox = document.getElementById('modal-box');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const downloadBtn = document.getElementById('modal-download-btn');
+
+            modalTitle.innerText = title;
+            modalContent.innerHTML = `<p class="text-stone-700 text-xs sm:text-sm leading-relaxed">${message}</p>`;
+            downloadBtn.classList.add('hidden');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            const modalBox = document.getElementById('modal-box');
+            modal.classList.add('opacity-0');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 250);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
