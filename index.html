@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>솜뭉치 고마워요 - 솜하치 팬레터 & 방셀 갤러리</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & RIDIBatang -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'RIDIBatang';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            font-family: 'RIDIBatang', 'Pretendard', sans-serif;
+            background-color: #fff5f7;
+            color: #4a3b4c;
+        }
+        .pastel-gradient {
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffc0cb 50%, #f8bbd0 100%);
+        }
+        .chzzk-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            transition: all 0.3s ease;
+        }
+        .chzzk-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 117, 140, 0.3);
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #fce4ec;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(216, 112, 147, 0.15);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff0f3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb6c1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff91a4;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- 상단 헤더 -->
+    <header class="pastel-gradient shadow-md sticky top-0 z-40 border-b border-pink-200">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">🎀</span>
+                <div>
+                    <h1 class="text-2xl font-bold text-pink-900 tracking-wide">솜뭉치 팬레터 & 방셀 갤러리</h1>
+                    <p class="text-xs text-pink-700 font-medium">솜하치와 솜뭉치들의 따뜻한 소통 공간 💕</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <a href="https://chzzk.naver.com" target="_blank" class="chzzk-btn text-white px-4 py-2 rounded-full text-sm font-semibold shadow flex items-center space-x-1.5">
+                    <span>📺 솜하치 치지직 방송국</span>
+                </a>
+                <button onclick="openAdminModal()" class="bg-white/80 hover:bg-white text-pink-800 border border-pink-300 px-3 py-2 rounded-full text-sm font-medium shadow-sm transition">
+                    ⚙️ 관리자 설정
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+        
+        <!-- 탭 네비게이션 -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-white/80 p-1.5 rounded-2xl shadow-sm border border-pink-200 flex space-x-2">
+                <button onclick="switchTab('gallery')" id="tab-gallery" class="px-6 py-2.5 rounded-xl font-bold text-sm transition bg-pink-500 text-white shadow">
+                    📸 방셀 갤러리
+                </button>
+                <button onclick="switchTab('letters')" id="tab-letters" class="px-6 py-2.5 rounded-xl font-bold text-sm transition text-pink-700 hover:bg-pink-50">
+                    💌 팬레터 보관함
+                </button>
+            </div>
+        </div>
+
+        <!-- [SECTION 1] 방셀 갤러리 -->
+        <section id="section-gallery" class="space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/60 p-4 rounded-2xl border border-pink-200 shadow-sm">
+                <div>
+                    <h2 class="text-xl font-bold text-pink-900">✨ 솜하치 방셀 & 팬아트 갤러리</h2>
+                    <p class="text-xs text-pink-700">소중한 추억과 사진을 구경하고 다운로드 및 좋아요를 눌러보세요!</p>
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <select id="gallery-tier-filter" onchange="renderGallery()" class="bg-white border border-pink-300 text-pink-900 text-sm rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <option value="all">모든 등급 보기</option>
+                        <option value="tier1">Tier 1 (일반)</option>
+                        <option value="tier2">Tier 2 (VIP)</option>
+                    </select>
+                    <button onclick="openUploadModal('gallery')" class="chzzk-btn text-white px-4 py-2 rounded-xl text-sm font-bold shadow whitespace-nowrap">
+                        + 사진 올리기
+                    </button>
+                </div>
+            </div>
+
+            <!-- 갤러리 그리드 -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- 동적 렌더링 -->
+            </div>
+        </section>
+
+        <!-- [SECTION 2] 팬레터 보관함 -->
+        <section id="section-letters" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/60 p-4 rounded-2xl border border-pink-200 shadow-sm">
+                <div>
+                    <h2 class="text-xl font-bold text-pink-900">💌 솜하치에게 전하는 팬레터</h2>
+                    <p class="text-xs text-pink-700">따뜻한 마음과 응원의 메시지를 남겨주세요!</p>
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <select id="letter-tier-filter" onchange="renderLetters()" class="bg-white border border-pink-300 text-pink-900 text-sm rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <option value="all">모든 등급 보기</option>
+                        <option value="tier1">Tier 1 (일반)</option>
+                        <option value="tier2">Tier 2 (VIP)</option>
+                    </select>
+                    <button onclick="openUploadModal('letter')" class="chzzk-btn text-white px-4 py-2 rounded-xl text-sm font-bold shadow whitespace-nowrap">
+                        + 편지 남기기
+                    </button>
+                </div>
+            </div>
+
+            <!-- 팬레터 그리드 -->
+            <div id="letters-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 동적 렌더링 -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-white/80 border-t border-pink-200 mt-12 py-6 text-center text-xs text-pink-700">
+        <p>© 2026 솜하치(Somhachi) All Rights Reserved. Made with 💖 for 솜뭉치</p>
+    </footer>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- [1] 업로드 모달 -->
+    <div id="upload-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-pink-100 space-y-4">
+            <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                <h3 id="upload-modal-title" class="text-lg font-bold text-pink-900">✨ 콘텐츠 등록하기</h3>
+                <button onclick="closeUploadModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            </div>
+            
+            <form id="upload-form" onsubmit="handleUploadSubmit(event)" class="space-y-4">
+                <input type="hidden" id="upload-type" value="gallery">
+                
+                <div>
+                    <label class="block text-xs font-bold text-pink-800 mb-1">작성자 닉네임</label>
+                    <input type="text" id="upload-author" required placeholder="닉네임을 입력하세요" class="w-full bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                </div>
+
+                <div id="upload-image-container">
+                    <label class="block text-xs font-bold text-pink-800 mb-1">이미지 업로드</label>
+                    <input type="file" id="upload-file" accept="image/*" class="w-full text-xs text-pink-700 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-pink-100 file:text-pink-800 hover:file:bg-pink-200 cursor-pointer">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-pink-800 mb-1">내용 / 메시지</label>
+                    <textarea id="upload-content" rows="4" required placeholder="내용을 입력하세요..." class="w-full bg-pink-50/50 border border-pink-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-pink-800 mb-1">공개 등급</label>
+                        <select id="upload-tier" class="w-full bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                            <option value="tier1">Tier 1 (일반)</option>
+                            <option value="tier2">Tier 2 (VIP)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-pink-800 mb-1">비밀번호 (수정/삭제용)</label>
+                        <input type="password" id="upload-password" required placeholder="비밀번호" class="w-full bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-xl text-sm font-bold text-gray-500 hover:bg-gray-100">취소</button>
+                    <button type="submit" id="upload-submit-btn" class="chzzk-btn text-white px-5 py-2 rounded-xl text-sm font-bold shadow">등록하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- [2] 비밀번호 인증 모달 -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-pink-100 space-y-4 text-center">
+            <span class="text-4xl">🔒</span>
+            <h3 class="text-lg font-bold text-pink-900">등급 인증 필요</h3>
+            <p class="text-xs text-pink-700">이 콘텐츠를 보려면 해당 등급의 비밀번호를 입력해주세요.</p>
+            
+            <input type="password" id="auth-input-password" placeholder="비밀번호 입력" class="w-full bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-pink-400">
+            
+            <div class="flex space-x-2">
+                <button onclick="closeAuthModal()" class="flex-1 py-2 rounded-xl text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200">취소</button>
+                <button onclick="verifyAuthPassword()" class="flex-1 chzzk-btn text-white py-2 rounded-xl text-sm font-bold shadow">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- [3] 이미지 확대 보기 모달 -->
+    <div id="zoom-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex flex-col items-center justify-center p-4 hidden" onclick="closeZoomModal()">
+        <div class="relative max-w-4xl max-h-[85vh] w-full flex flex-col items-center" onclick="event.stopPropagation()">
+            <img id="zoom-image-src" src="" alt="확대 이미지" class="max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/20">
+            <div class="flex items-center gap-3 mt-4">
+                <button id="zoom-download-btn" class="chzzk-btn text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow flex items-center gap-2">
+                    <span>💾 이미지 다운로드</span>
+                </button>
+                <button onclick="closeZoomModal()" class="bg-white/20 hover:bg-white/30 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- [4] 관리자 설정 모달 -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-pink-100 space-y-4">
+            <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                <h3 class="text-lg font-bold text-pink-900">⚙️ 관리자 설정</h3>
+                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-pink-800 mb-1">Tier 1 비밀번호 변경</label>
+                    <div class="flex gap-2">
+                        <input type="password" id="admin-tier1-pwd" placeholder="새 Tier 1 비밀번호" class="flex-1 bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <button onclick="updateTierPassword('tier1')" class="chzzk-btn text-white px-4 py-2 rounded-xl text-xs font-bold shadow whitespace-nowrap">변경</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-pink-800 mb-1">Tier 2 비밀번호 변경</label>
+                    <div class="flex gap-2">
+                        <input type="password" id="admin-tier2-pwd" placeholder="새 Tier 2 비밀번호" class="flex-1 bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <button onclick="updateTierPassword('tier2')" class="chzzk-btn text-white px-4 py-2 rounded-xl text-xs font-bold shadow whitespace-nowrap">변경</button>
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-pink-100 flex justify-between items-center">
+                    <span class="text-xs text-pink-700">데이터 백업 및 초기화 관리</span>
+                    <button onclick="exportDataJSON()" class="bg-pink-100 hover:bg-pink-200 text-pink-900 px-3 py-1.5 rounded-xl text-xs font-bold transition">데이터 백업</button>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="closeAdminModal()" class="px-5 py-2 rounded-xl text-sm font-bold text-gray-500 bg-gray-100 hover:bg-gray-200">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 사용자의 파이어베이스 설정 적용 완료
+        const firebaseConfig = {
+            apiKey: "AIzaSyCX56MHaSvyRzQrc0FXV3tg6qPP6XxmQaA",
+            authDomain: "somhachi-ac232.firebaseapp.com",
+            projectId: "somhachi-ac232",
+            storageBucket: "somhachi-ac232.firebasestorage.app",
+            messagingSenderId: "344363373779",
+            appId: "1:344363373779:web:b696e0fe27c528e6473026",
+            measurementId: "G-PQSY7P3CRN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.galleries = [];
+        window.letters = [];
+        window.tierPasswords = {
+            tier1: localStorage.getItem('som_tier1_pwd') || '1234',
+            tier2: localStorage.getItem('som_tier2_pwd') || '5678'
+        };
+        window.unlockedTiers = {
+            tier1: true,
+            tier2: false
+        };
+        let pendingAction = null;
+
+        // 실시간 동기화 리스너
+        function initRealtimeSync() {
+            const qGallery = query(collection(db, "galleries"), orderBy("createdAt", "desc"));
+            onSnapshot(qGallery, (snapshot) => {
+                window.galleries = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderGallery();
+            }, (error) => {
+                console.error("Gallery sync error:", error);
+            });
+
+            const qLetters = query(collection(db, "letters"), orderBy("createdAt", "desc"));
+            onSnapshot(qLetters, (snapshot) => {
+                window.letters = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderLetters();
+            }, (error) => {
+                console.error("Letter sync error:", error);
+            });
+        }
+
+        initRealtimeSync();
+
+        window.switchTab = function(tabName) {
+            const gallerySec = document.getElementById('section-gallery');
+            const lettersSec = document.getElementById('section-letters');
+            const tabGallery = document.getElementById('tab-gallery');
+            const tabLetters = document.getElementById('tab-letters');
+
+            if (tabName === 'gallery') {
+                gallerySec.classList.remove('hidden');
+                lettersSec.classList.add('hidden');
+                tabGallery.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition bg-pink-500 text-white shadow";
+                tabLetters.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition text-pink-700 hover:bg-pink-50";
+            } else {
+                gallerySec.classList.add('hidden');
+                lettersSec.classList.remove('hidden');
+                tabLetters.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition bg-pink-500 text-white shadow";
+                tabGallery.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition text-pink-700 hover:bg-pink-50";
+            }
+        };
+
+        function compressImage(file, maxWidth = 800, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        window.renderGallery = function() {
+            const grid = document.getElementById('gallery-grid');
+            const filter = document.getElementById('gallery-tier-filter').value;
+            grid.innerHTML = '';
+
+            const filtered = window.galleries.filter(item => filter === 'all' || item.tier === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-pink-500 text-sm">등록된 방셀 이미지가 없어요! 첫 사진을 올려보세요 💕</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const isLocked = item.tier === 'tier2' && !window.unlockedTiers.tier2;
+                const card = document.createElement('div');
+                card.className = "custom-card rounded-2xl overflow-hidden shadow-sm flex flex-col relative";
+
+                if (isLocked) {
+                    card.innerHTML = `
+                        <div class="h-64 bg-pink-100 flex flex-col items-center justify-center p-6 text-center">
+                            <span class="text-4xl mb-2">🔒</span>
+                            <h4 class="font-bold text-pink-900 mb-1">잠겨있는 Tier 2 콘텐츠</h4>
+                            <p class="text-xs text-pink-700 mb-3">비밀번호를 입력하고 감상해보세요!</p>
+                            <button onclick="requestUnlock('tier2')" class="chzzk-btn text-white px-4 py-2 rounded-xl text-xs font-bold shadow">비밀번호 입력하기</button>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="relative group cursor-pointer overflow-hidden h-64 bg-pink-50" onclick="openZoomModal('${item.image}', '${item.id}')">
+                            <img src="${item.image}" alt="방셀" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold text-sm">
+                                🔍 크게 보기 / 다운로드
+                            </div>
+                        </div>
+                        <div class="p-4 flex flex-col justify-between flex-grow">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-pink-900 text-sm">✨ ${escapeHtml(item.author)}</span>
+                                    <span class="text-[10px] bg-pink-100 text-pink-800 px-2 py-0.5 rounded-full font-bold uppercase">${item.tier}</span>
+                                </div>
+                                <p class="text-xs text-pink-800/80 mb-4 line-clamp-2">${escapeHtml(item.content)}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-pink-100 text-xs">
+                                <button onclick="handleLike('galleries', '${item.id}')" class="flex items-center gap-1.5 text-pink-700 hover:text-pink-900 font-bold bg-pink-50 hover:bg-pink-100 px-3 py-1.5 rounded-xl transition">
+                                    <span>💖 좋아요</span>
+                                    <span class="bg-white px-2 py-0.5 rounded-lg shadow-sm">${item.likes || 0}</span>
+                                </button>
+                                <button onclick="downloadImage('${item.image}', 'somhachi_${item.id}.jpg')" class="text-pink-600 hover:text-pink-800 font-bold bg-pink-50 hover:bg-pink-100 px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+                                    <span>💾 다운로드</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+                grid.appendChild(card);
+            });
+        };
+
+        window.renderLetters = function() {
+            const grid = document.getElementById('letters-grid');
+            const filter = document.getElementById('letter-tier-filter').value;
+            grid.innerHTML = '';
+
+            const filtered = window.letters.filter(item => filter === 'all' || item.tier === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-pink-500 text-sm">등록된 팬레터가 없어요! 따뜻한 첫 편지를 남겨주세요 💌</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const isLocked = item.tier === 'tier2' && !window.unlockedTiers.tier2;
+                const card = document.createElement('div');
+                card.className = "custom-card rounded-2xl p-5 shadow-sm flex flex-col justify-between";
+
+                if (isLocked) {
+                    card.innerHTML = `
+                        <div class="py-8 flex flex-col items-center justify-center text-center">
+                            <span class="text-4xl mb-2">🔒</span>
+                            <h4 class="font-bold text-pink-900 mb-1">잠겨있는 Tier 2 팬레터</h4>
+                            <p class="text-xs text-pink-700 mb-3">비밀번호를 입력하고 편지를 읽어보세요!</p>
+                            <button onclick="requestUnlock('tier2')" class="chzzk-btn text-white px-4 py-2 rounded-xl text-xs font-bold shadow">비밀번호 입력하기</button>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-bold text-pink-900 text-sm">💌 ${escapeHtml(item.author)}</span>
+                                <span class="text-[10px] bg-pink-100 text-pink-800 px-2 py-0.5 rounded-full font-bold uppercase">${item.tier}</span>
+                            </div>
+                            <p class="text-xs text-pink-900/90 whitespace-pre-wrap leading-relaxed mb-4">${escapeHtml(item.content)}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-pink-100 text-xs">
+                            <button onclick="handleLike('letters', '${item.id}')" class="flex items-center gap-1.5 text-pink-700 hover:text-pink-900 font-bold bg-pink-50 hover:bg-pink-100 px-3 py-1.5 rounded-xl transition">
+                                <span>💖 응원해요</span>
+                                <span class="bg-white px-2 py-0.5 rounded-lg shadow-sm">${item.likes || 0}</span>
+                            </button>
+                            <span class="text-[10px] text-pink-400">${new Date(item.createdAt || Date.now()).toLocaleDateString()}</span>
+                        </div>
+                    `;
+                }
+                grid.appendChild(card);
+            });
+        };
+
+        window.handleLike = async function(collectionName, id) {
+            try {
+                const docRef = doc(db, collectionName, id);
+                const targetItem = window[collectionName === 'galleries' ? 'galleries' : 'letters'].find(i => i.id === id);
+                const currentLikes = targetItem ? (targetItem.likes || 0) : 0;
+                await updateDoc(docRef, { likes: currentLikes + 1 });
+            } catch (e) {
+                console.error("Like error:", e);
+            }
+        };
+
+        window.downloadImage = function(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || 'somhachi_image.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        window.openUploadModal = function(type) {
+            document.getElementById('upload-type').value = type;
+            document.getElementById('upload-modal-title').innerText = type === 'gallery' ? '✨ 방셀 사진 올리기' : '💌 팬레터 남기기';
+            const imgContainer = document.getElementById('upload-image-container');
+            if (type === 'letter') {
+                imgContainer.classList.add('hidden');
+                document.getElementById('upload-file').required = false;
+            } else {
+                imgContainer.classList.remove('hidden');
+                document.getElementById('upload-file').required = true;
+            }
+            document.getElementById('upload-form').reset();
+            document.getElementById('upload-modal').classList.remove('hidden');
+        };
+
+        window.closeUploadModal = function() {
+            document.getElementById('upload-modal').classList.add('hidden');
+        };
+
+        window.handleUploadSubmit = async function(event) {
+            event.preventDefault();
+            const type = document.getElementById('upload-type').value;
+            const author = document.getElementById('upload-author').value;
+            const content = document.getElementById('upload-content').value;
+            const tier = document.getElementById('upload-tier').value;
+            const password = document.getElementById('upload-password').value;
+            const fileInput = document.getElementById('upload-file');
+
+            const submitBtn = document.getElementById('upload-submit-btn');
+            submitBtn.innerText = '등록 중...';
+            submitBtn.disabled = true;
+
+            try {
+                let imageUrl = '';
+                if (type === 'gallery' && fileInput.files && fileInput.files[0]) {
+                    imageUrl = await compressImage(fileInput.files[0], 800, 0.7);
+                }
+
+                const docData = {
+                    author,
+                    content,
+                    tier,
+                    password,
+                    likes: 0,
+                    createdAt: Date.now()
+                };
+
+                if (type === 'gallery') {
+                    docData.image = imageUrl;
+                    await addDoc(collection(db, "galleries"), docData);
+                } else {
+                    await addDoc(collection(db, "letters"), docData);
+                }
+
+                closeUploadModal();
+                alert('성공적으로 등록되었습니다! 💖');
+            } catch (e) {
+                console.error("Upload error:", e);
+                alert('등록 중 오류가 발생했습니다. 다시 시도해 주세요.');
+            } finally {
+                submitBtn.innerText = '등록하기';
+                submitBtn.disabled = false;
+            }
+        };
+
+        window.requestUnlock = function(tier) {
+            pendingAction = tier;
+            document.getElementById('auth-input-password').value = '';
+            document.getElementById('auth-modal').classList.remove('hidden');
+        };
+
+        window.closeAuthModal = function() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            pendingAction = null;
+        };
+
+        window.verifyAuthPassword = function() {
+            const pwdInput = document.getElementById('auth-input-password').value;
+            const correctPwd = window.tierPasswords[pendingAction];
+
+            if (pwdInput === correctPwd) {
+                window.unlockedTiers[pendingAction] = true;
+                closeAuthModal();
+                renderGallery();
+                renderLetters();
+                alert('등급 인증이 완료되었습니다! 🎉');
+            } else {
+                alert('비밀번호가 올바르지 않습니다! 😢');
+            }
+        };
+
+        window.openZoomModal = function(url, id) {
+            document.getElementById('zoom-image-src').src = url;
+            document.getElementById('zoom-download-btn').onclick = () => downloadImage(url, `somhachi_${id}.jpg`);
+            document.getElementById('zoom-modal').classList.remove('hidden');
+        };
+
+        window.closeZoomModal = function() {
+            document.getElementById('zoom-modal').classList.add('hidden');
+        };
+
+        window.openAdminModal = function() {
+            document.getElementById('admin-tier1-pwd').value = '';
+            document.getElementById('admin-tier2-pwd').value = '';
+            document.getElementById('admin-modal').classList.remove('hidden');
+        };
+
+        window.closeAdminModal = function() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        };
+
+        window.updateTierPassword = function(tier) {
+            const newPwd = document.getElementById(`admin-${tier}-pwd`).value;
+            if (!newPwd) {
+                alert('변경할 비밀번호를 입력해주세요!');
+                return;
+            }
+            window.tierPasswords[tier] = newPwd;
+            localStorage.setItem(`som_${tier}_pwd`, newPwd);
+            alert(`${tier.toUpperCase()} 비밀번호가 성공적으로 변경되었습니다! 🔑`);
+        };
+
+        window.exportDataJSON = function() {
+            const exportData = {
+                galleries: window.galleries,
+                letters: window.letters
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `somhachi_backup_${Date.now()}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        };
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
